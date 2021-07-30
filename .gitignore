@@ -1,0 +1,13 @@
+/target/
+/.project
+/build.gradle
+/docker-compose.yml
+/gradlew
+/gradlew.bat
+/mvnw
+/mvnw.cmd
+/settings.gradle
+/.mvn/
+/.settings/
+/gradle/
+

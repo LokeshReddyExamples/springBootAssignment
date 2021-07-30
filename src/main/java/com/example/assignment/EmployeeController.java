@@ -3,26 +3,23 @@ package com.example.assignment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController	
-@RequestMapping(path="/demo") 
 public class EmployeeController {
 	
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	
 	@PostMapping(path="/create")
-	public @ResponseBody String create(@RequestBody Employee employee) {
+	public @ResponseBody Employee create(@RequestBody Employee employee) {
 		System.out.println(employee.getFirstName());
 		Employee object = new Employee();
 		object.setFirstName(employee.getFirstName());
 		object.setLastName(employee.getLastName());
 		object.setEmailId(employee.getEmailId());
-		employeeRepository.save(object);
-		return "Saved";
+		return employeeRepository.save(object);
 	}
 
 	

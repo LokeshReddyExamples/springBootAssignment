@@ -32,14 +32,14 @@ public class EmployeeController {
 			employee.setEmailId(latestEmployee.getEmailId());
 			return employeeService.save(employee);
 		}).orElseGet(() -> {
-			latestEmployee.setId(id);
 	        return employeeService.save(latestEmployee);
 	      });
 	}
 		
 	@GetMapping("/getEmployee/{id}")
 	  public Employee getEmployee(@PathVariable int id) {
-	    return employeeService.findById(id).get();
+	    return employeeService.findById(id)
+	    		.orElseThrow(() -> new EmployeException("no record available."));
 	  }
 	
 	@GetMapping("getAllEmployees")

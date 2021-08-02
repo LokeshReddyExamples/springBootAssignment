@@ -10,16 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmployeeController {
 	
 	@Autowired
-	private EmployeeRepository employeeRepository;
+	private EmployeeService employeeService;
 	
 	@PostMapping(path="/create")
 	public @ResponseBody Employee create(@RequestBody Employee employee) {
-		System.out.println(employee.getFirstName());
-		Employee object = new Employee();
-		object.setFirstName(employee.getFirstName());
-		object.setLastName(employee.getLastName());
-		object.setEmailId(employee.getEmailId());
-		return employeeRepository.save(object);
+		return employeeService.save(employee);
 	}
 
 	

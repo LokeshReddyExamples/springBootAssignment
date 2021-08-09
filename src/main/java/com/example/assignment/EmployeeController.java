@@ -1,6 +1,7 @@
 package com.example.assignment;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,21 +26,22 @@ public class EmployeeController {
 	
 	@PutMapping("/update/{id}")
 	public Employee  update(@RequestBody Employee latestEmployee,@PathVariable int id) {
-		return employeeService.findById(id)
+		return Optional.of(employeeService.findById(id)) 
 		.map(employee -> {
 			employee.setFirstName(latestEmployee.getFirstName());
 			employee.setLastName(latestEmployee.getLastName());
 			employee.setEmailId(latestEmployee.getEmailId());
 			return employeeService.save(employee);
 		}).orElseGet(() -> {
-			latestEmployee.setId(id);
 	        return employeeService.save(latestEmployee);
 	      });
+		
 	}
 		
 	@GetMapping("/getEmployee/{id}")
 	  public Employee getEmployee(@PathVariable int id) {
-	    return employeeService.findById(id).get();
+	    return employeeService.findById(id);
+	    		
 	  }
 	
 	@GetMapping("getAllEmployees")

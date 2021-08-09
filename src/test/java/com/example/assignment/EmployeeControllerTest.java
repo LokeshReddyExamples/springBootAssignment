@@ -9,16 +9,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Matchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -27,7 +25,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@RunWith(SpringRunner.class)
+//@RunWith(SpringRunner.class)
 @WebMvcTest(EmployeeController.class)
 public class EmployeeControllerTest {
 	
@@ -38,9 +36,6 @@ public class EmployeeControllerTest {
 	@InjectMocks
 	private EmployeeController controller;
 	
-	/*
-	 * @Before private void init(){ System.out.println("Hello  "); }
-	 */
 	
 	@Test
 	public void createTest() throws Exception {
@@ -56,7 +51,7 @@ public class EmployeeControllerTest {
 				.contentType(MediaType.APPLICATION_JSON);
 		MvcResult   mvcResult = mockMvc.perform(requestBuilder).andReturn();
 		String outPutInJson = mvcResult.getRequest().getContentAsString();
-		Assert.assertEquals(inputInJson, outPutInJson);
+		Assertions.assertEquals(inputInJson, outPutInJson);
 	}
 	
 	@Test
@@ -76,7 +71,7 @@ public class EmployeeControllerTest {
 				.contentType(MediaType.APPLICATION_JSON);
 		MvcResult   mvcResult = mockMvc.perform(requestBuilder).andReturn();
 		String outPutInJson = mvcResult.getRequest().getContentAsString();
-		Assert.assertEquals(inputInJson, outPutInJson);
+		Assertions.assertEquals(inputInJson, outPutInJson);
 	}
 	
 	@Test
@@ -92,7 +87,7 @@ public class EmployeeControllerTest {
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get("/getAllEmployees");
 		MvcResult   mvcResult = mockMvc.perform(requestBuilder).andReturn();
-		Assert.assertEquals(this.mapToJson(empList),mvcResult.getResponse().getContentAsString());
+		Assertions.assertEquals(this.mapToJson(empList),mvcResult.getResponse().getContentAsString());
 	}
 	
 
@@ -104,7 +99,7 @@ public class EmployeeControllerTest {
 		    RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.get("/getEmployee/"+1);
 		    	MvcResult   mvcResult = mockMvc.perform(requestBuilder).andReturn();
-			Assert.assertEquals(this.mapToJson(employee), mvcResult.getResponse().getContentAsString());
+		    	Assertions.assertEquals(this.mapToJson(employee), mvcResult.getResponse().getContentAsString());
 	}
 	
 	@Test

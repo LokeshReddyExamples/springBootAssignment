@@ -9,17 +9,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
 public class EmployeeServiceTest {
 
@@ -28,10 +23,6 @@ public class EmployeeServiceTest {
 	@InjectMocks
 	private EmployeeService service;
 	
-	@Before
-    public void setup(){
-        MockitoAnnotations.initMocks(this);
-    }
 	
 	@Test
 	public void saveTest() {
@@ -40,12 +31,12 @@ public class EmployeeServiceTest {
         employee.setLastName("HK");
         when(repository.save(any(Employee.class))).thenReturn(employee);
         Employee newEmployee = service.save(new Employee());
-        Assert.assertEquals("Hulk", newEmployee.getFirstName());
+        Assertions.assertEquals("Hulk", newEmployee.getFirstName());
 	}
 	@Test
 	public void saveNullCheckTest() {
         Employee newEmployee = service.save(null);
-        Assert.assertEquals(null, newEmployee);
+        Assertions.assertEquals(null, newEmployee);
 	}
 	
 	@Test
@@ -54,7 +45,7 @@ public class EmployeeServiceTest {
 		 emp.setFirstName("selected one");
 		 when(repository.findById(anyInt())).thenReturn(Optional.of(emp));
          Employee newEmployee = service.findById(1);
-         Assert.assertEquals(emp.getFirstName(), newEmployee.getFirstName());
+         Assertions.assertEquals(emp.getFirstName(), newEmployee.getFirstName());
 	}
 	
 	@Test
@@ -68,7 +59,7 @@ public class EmployeeServiceTest {
         List<Employee> mockEmpLIst = new ArrayList<Employee>(Arrays.asList(employee1,employee2)); 
         when(repository.findAll()).thenReturn(mockEmpLIst);
         List<Employee> actalEmpList = service.getAllEmployees();
-        Assert.assertEquals(actalEmpList.size(), actalEmpList.size());
+        Assertions.assertEquals(actalEmpList.size(), actalEmpList.size());
 	}
 	
 }

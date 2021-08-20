@@ -19,12 +19,12 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 	
-	@PostMapping("/create")
+	@PostMapping("/employee")
 	public @ResponseBody Employee create(@RequestBody Employee employee) {
 		return employeeService.save(employee);
 	}
 	
-	@PutMapping("/update/{id}")
+	@PutMapping("/employee/{id}")
 	public Employee  update(@RequestBody Employee latestEmployee,@PathVariable int id) {
 		return Optional.of(employeeService.findById(id)) 
 		.map(employee -> {
@@ -38,18 +38,18 @@ public class EmployeeController {
 		
 	}
 		
-	@GetMapping("/getEmployee/{id}")
+	@GetMapping("/employee/{id}")
 	  public Employee getEmployee(@PathVariable int id) {
 	    return employeeService.findById(id);
 	    		
 	  }
 	
-	@GetMapping("getAllEmployees")
+	@GetMapping("employee")
 	public List<Employee> getAllEmployees(){
 		return employeeService.getAllEmployees();
 	}
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/employee/{id}")
 	public void deleteEmployee(@PathVariable int id) {
 		employeeService.deleteById(id);
 	}

@@ -47,7 +47,7 @@ public class EmployeeControllerTest {
 		String inputInJson = this.mapToJson(employee);
 		when(employeeService.save(any(Employee.class))).thenReturn(employee);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.post("/employee")
+				.post("/employees")
 				.accept(MediaType.APPLICATION_JSON).content(inputInJson)
 				.contentType(MediaType.APPLICATION_JSON);
 		MvcResult   mvcResult = mockMvc.perform(requestBuilder).andReturn();
@@ -67,7 +67,7 @@ public class EmployeeControllerTest {
 		when(employeeService.findById(any(Integer.class)))
 		.thenReturn(employee);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.put("/employee/"+1)
+				.put("/employees/"+1)
 				.accept(MediaType.APPLICATION_JSON).content(inputInJson)
 				.contentType(MediaType.APPLICATION_JSON);
 		MvcResult   mvcResult = mockMvc.perform(requestBuilder).andReturn();
@@ -86,7 +86,7 @@ public class EmployeeControllerTest {
 		List<Employee> empList = new ArrayList<Employee>(Arrays.asList(e1,e2,e3));
 		when(employeeService.getAllEmployees()).thenReturn(empList);
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.get("/employee");
+				.get("/employees");
 		MvcResult   mvcResult = mockMvc.perform(requestBuilder).andReturn();
 		Assertions.assertEquals(this.mapToJson(empList),mvcResult.getResponse().getContentAsString());
 	}
@@ -98,7 +98,7 @@ public class EmployeeControllerTest {
 			employee.setFirstName("F-1");
 			when(employeeService.findById(Matchers.anyInt())).thenReturn(employee);
 		    RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.get("/employee/"+1);
+				.get("/employees/"+1);
 		    	MvcResult   mvcResult = mockMvc.perform(requestBuilder).andReturn();
 		    	Assertions.assertEquals(this.mapToJson(employee), mvcResult.getResponse().getContentAsString());
 	}
@@ -107,7 +107,7 @@ public class EmployeeControllerTest {
 	public void deleteEmployeeTest() throws Exception {
 		int id = 1;
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
-				.delete("/employee/"+id);
+				.delete("/employees/"+id);
 		mockMvc.perform(requestBuilder).andReturn();
 	}
 	

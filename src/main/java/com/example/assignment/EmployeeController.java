@@ -1,6 +1,7 @@
 package com.example.assignment;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,36 +19,37 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 	
-	@PostMapping("/create")
+	@PostMapping("/employees")
 	public @ResponseBody Employee create(@RequestBody Employee employee) {
 		return employeeService.save(employee);
 	}
 	
-	@PutMapping("/update/{id}")
+	@PutMapping("/employees/{id}")
 	public Employee  update(@RequestBody Employee latestEmployee,@PathVariable int id) {
-		return employeeService.findById(id)
+		return Optional.of(employeeService.findById(id)) 
 		.map(employee -> {
 			employee.setFirstName(latestEmployee.getFirstName());
 			employee.setLastName(latestEmployee.getLastName());
 			employee.setEmailId(latestEmployee.getEmailId());
 			return employeeService.save(employee);
 		}).orElseGet(() -> {
-			latestEmployee.setId(id);
 	        return employeeService.save(latestEmployee);
 	      });
+		
 	}
 		
-	@GetMapping("/getEmployee/{id}")
+	@GetMapping("/employees/{id}")
 	  public Employee getEmployee(@PathVariable int id) {
-	    return employeeService.findById(id).get();
+	    return employeeService.findById(id);
+	    		
 	  }
 	
-	@GetMapping("getAllEmployees")
+	@GetMapping("employees")
 	public List<Employee> getAllEmployees(){
 		return employeeService.getAllEmployees();
 	}
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/employees/{id}")
 	public void deleteEmployee(@PathVariable int id) {
 		employeeService.deleteById(id);
 	}

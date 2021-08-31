@@ -18,5 +18,9 @@ Feature: employee_curd_operation
 		When passing latest employee with valid id 33
 		Then it should update with latest employee
 
+	Scenario: is to delete existing employee
+		When passing valid employee id 57
+		Then  it should delete employee with id 57
+
 	
     

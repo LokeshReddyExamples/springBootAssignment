@@ -1,14 +1,16 @@
 package com.example.assignment;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static org.junit.Assert.*;
 
 
 public class StepDefinitions {
@@ -64,7 +66,15 @@ public class StepDefinitions {
 
 	}
 
+	@When("passing valid employee id {int}")
+	public void passing_valid_employee_id(Integer id) {
+			employeeHttpClient.delete(id);
+	}
 
-
+	@Then("it should delete employee with id {int}")
+	public void it_should_delete_employee_with_id(Integer empId) {
+		assertFalse(employeeHttpClient.getContents().stream()
+				 .anyMatch(employee -> employee.getId()==empId));
+		}
 
 }

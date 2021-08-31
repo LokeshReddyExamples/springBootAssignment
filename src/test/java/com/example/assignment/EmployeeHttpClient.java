@@ -2,9 +2,13 @@ package com.example.assignment;
 
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import static io.cucumber.spring.CucumberTestContext.SCOPE_CUCUMBER_GLUE;
@@ -33,7 +37,12 @@ public class EmployeeHttpClient {
     }
 
     public List<Employee> getContents() {
-        return (List<Employee>) restTemplate.getForObject(thingsEndpoint(),List.class);
+
+        ResponseEntity<List<Employee>> rateResponse =
+                restTemplate.exchange(thingsEndpoint(),
+                        HttpMethod.GET, null, new ParameterizedTypeReference<List<Employee>>() {});
+
+        return  rateResponse.getBody();
     }
 
     public void delete(int id){

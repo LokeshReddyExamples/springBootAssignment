@@ -27,14 +27,14 @@ public class StepDefinitions {
 
 	private  String msg = "";
 
-	@Given("employee is Json record")
-	public void employee_is_json_record() {
+	@Given("passing valid employee record")
+	public void passing_valid_employee_record() {
 		expectedObject.setEmailId("joy@gmail.com");
 		expectedObject.setFirstName("joy");
 		expectedObject.setLastName("R");
 	}
-	@When("employee is successfully saved to db")
-	public void employee_is_successfully_saved_to_db() {
+	@When("employee should successfully saved to db")
+	public void employee_should_successfully_saved_to_db() {
 		actualResult = employeeHttpClient.put(expectedObject);
 	}
 	@Then("it should return saved employee object")

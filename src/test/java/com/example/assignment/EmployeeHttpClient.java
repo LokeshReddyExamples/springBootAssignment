@@ -6,6 +6,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.lang.reflect.Type;
@@ -32,8 +33,8 @@ public class EmployeeHttpClient {
         return restTemplate.postForEntity(thingsEndpoint(), employee, Employee.class).getBody();
     }
 
-    public Employee getContents(int id) {
-        return restTemplate.getForEntity(thingsEndpoint()+"/"+id, Employee.class).getBody();
+    public ResponseEntity<Employee> getContents(int id) {
+        return restTemplate.getForEntity(thingsEndpoint()+"/"+id, Employee.class);
     }
 
     public List<Employee> getContents() {
@@ -45,9 +46,14 @@ public class EmployeeHttpClient {
         return  rateResponse.getBody();
     }
 
+    public void put(final Employee employee,int id) {
+         restTemplate.put(thingsEndpoint()+"/"+id, employee);
+    }
+
     public void delete(int id){
          restTemplate.delete(thingsEndpoint()+"/"+id);
     }
+
 
 
 }

@@ -6,11 +6,6 @@ Feature: employee_curd_operation
 		When  employee should successfully saved to db
 		Then  it should return saved employee object
 
-#	Scenario: Save employee record null
-#		Given passing null employee record
-#		When  employee should not successfully save to db
-#		Then  it should return null
-
 	Scenario: is to Get employee by id
 		When  employee id is 36
 		Then  it should return the employee record

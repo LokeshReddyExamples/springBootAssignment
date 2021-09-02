@@ -16,15 +16,15 @@ Feature: employee_curd_operation
 		Then  it should return the employee record
 
 	Scenario: is to Get employee by id which is not present in db
-		When  passing invalid employee id -1
+		When  passing invalid employee id
 		Then  it should return empty employee record
 
 	Scenario: is to get all employee
 		Then it should return all the employees
 
 	Scenario: is to update employee by id
-		When passing latest employee with valid id 88
-		Then it should update with latest employee record for same id 88
+		When passing latest employee with valid id
+		Then it should update with latest employee record for same id
 
 #	Scenario: is to delete existing employee
 #		When passing valid employee id 57

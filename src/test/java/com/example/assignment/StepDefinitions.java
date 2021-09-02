@@ -64,10 +64,10 @@ public class StepDefinitions {
 		assertEquals(36,actualResult.getId());
 	}
 
-	@When("passing invalid employee id {int}")
-	public void passing_invalid_employee_id(Integer id) {
+	@When("passing invalid employee id")
+	public void passing_invalid_employee_id() {
 		 exception = assertThrows(HttpClientErrorException.class,() ->{
-			employeeHttpClient.getContents(id);
+			employeeHttpClient.getContents(-1);
 		});
 
 	}
@@ -83,15 +83,15 @@ public class StepDefinitions {
 			Assert.assertTrue(list instanceof List);
 	}
 
-	@When("passing latest employee with valid id {int}")
-	public void passing_latest_employee_with_valid_id(Integer id) {
+	@When("passing latest employee with valid id")
+	public void passing_latest_employee_with_valid_id() {
 		expectedObject.setFirstName("update_f_name");
 		expectedObject.setLastName("update_l_name");
-		employeeHttpClient.put(expectedObject,id);
+		employeeHttpClient.put(expectedObject,88);
 	}
-	@Then("it should update with latest employee record for same id {int}")
-	public void it_should_update_with_latest_employee(Integer id) {
-			assertEquals(expectedObject.getFirstName(),((Employee)employeeHttpClient.getContents(id).getBody()).getFirstName());
+	@Then("it should update with latest employee record for same id")
+	public void it_should_update_with_latest_employee() {
+			assertEquals(expectedObject.getFirstName(),((Employee)employeeHttpClient.getContents(88).getBody()).getFirstName());
 	}
 
 	@When("passing valid employee id {int}")
